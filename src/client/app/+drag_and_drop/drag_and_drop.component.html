@@ -1,0 +1,25 @@
+<!--<input [(ngModel)]="width" type="number" />-->
+<!--<input [(ngModel)]="height" type="number" />-->
+
+<div class="ui-grid ui-grid-pad ui-grid-responsive">
+  <div class="ui-grid-row">
+    <div class="ui-grid-col-6 ui-widget-content" style="border-right:0 none">
+      <label pDraggable="cars" (onDragStart)="dragStart($event, 'label')" (onDragEnd)="dragEnd($event)">Label</label>
+      <input [disabled]="true" pDraggable="cars" (onDragStart)="dragStart($event, 'input')" (onDragEnd)="dragEnd($event)" type="text" />
+    </div>
+  </div>
+
+  <div *ngFor="let row of rows" style="width: 900px">
+    <div class="ui-widget-content"
+         *ngFor="let cell of row"
+         pDroppable="cars"
+         (onDrop)="drop($event, cell)"
+         [ngClass]="{'ui-state-highlight':draggedCar}"
+         style="height: 100px; border: 1px solid red; display: inline-block; float: left"
+         [style.width]="(900 / width) + 'px'">
+
+      <label *ngIf="cell.element === 'label'" #label pDraggable="cars" (onDragStart)="dragStart($event, label)" (onDragEnd)="dragEnd($event)">Label</label>
+      <input *ngIf="cell.element === 'input'" #input [disabled]="true" pDraggable="cars" (onDragStart)="dragStart($event, input)" (onDragEnd)="dragEnd($event)" type="text" />
+    </div>
+  </div>
+</div>

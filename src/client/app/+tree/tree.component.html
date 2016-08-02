@@ -1,0 +1,23 @@
+<p-growl [value]="msgs"></p-growl>
+
+<p-tree [value]="files"
+        selectionMode="single"
+        [(selection)]="selectedFile"
+        (onNodeUnselect)="nodeUnselect($event)">
+  <template let-node>
+    <!--<input [(ngModel)]="node.label" type="text" style="width:100%" />-->
+  <!--</template>-->
+  <!--<template let-node>-->
+    <div [hidden]="node.isEdited === true" (contextmenu)="nodeContextMenu(node, contextMenu, $event)" (dblclick)="nodeDoubleClick(node, nodeLabelInput, $event)">{{node.label}}</div>
+    <input #nodeLabelInput [hidden]="node.isEdited !== true" (keypress)="nodeKeyPress(node, $event)" (blur)="nodeBlur(node, $event)" [(ngModel)]="node.label" type="text" style="width:100%" />
+    <!--<p-contextMenu *ngIf="node.contextMenuItems && (selectedNode.label === node.label)" [model]="node.contextMenuItems"></p-contextMenu>-->
+  </template>
+</p-tree>
+
+<p-tieredMenu #contextMenu [model]="contextMenuItems" [popup]="true"></p-tieredMenu>
+<span>{{selectedNode.label}}</span>
+
+<input [(ngModel)]="width" type="number" />
+<input [(ngModel)]="height" type="number" />
+
+<sd-drag_and_drop [width]="width" [height]="height"></sd-drag_and_drop>

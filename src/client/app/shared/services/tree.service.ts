@@ -7,117 +7,119 @@ import { MenuItem } from 'primeng/primeng';
 @Injectable()
 export class TreeService extends BaseService {
   private files: any[];
+  private lazyFiles: any[];
   private contextMenuItems: MenuItem[];
+
+  setChild(parent: any, levels: number) {
+    if(levels <= 1) {
+      return;
+    }
+
+    for(let i = 0; i < 1; i++) {
+      let child = {
+        "contextMenuItems": [{
+          label: 'File',
+          items: [{
+            label: 'New',
+            icon: 'fa-plus',
+            items: [{
+              label: 'Project'
+            }, {
+              label: 'Other'
+            }]
+          }, {
+            label: 'Open'
+          }, {
+            label: 'Quit'
+          }]
+        }],
+        "label": "Documents",
+        "data": "Documents Folder",
+        "expandedIcon": "fa-folder-open",
+        "collapsedIcon": "fa-folder",
+        "children": []
+        // "children": [{
+        //   "label": "Work",
+        //   "data": "Work Folder",
+        //   "expandedIcon": "fa-folder-open",
+        //   "collapsedIcon": "fa-folder",
+        //   "children": [{
+        //     "label": "Expenses.doc",
+        //     "icon": "fa-file-word-o",
+        //     "data": "Expenses Document"
+        //   }, {
+        //     "label": "Resume.doc",
+        //     "icon": "fa-file-word-o",
+        //     "data": "Resume Document"
+        //   }]
+        // }]
+      };
+
+      parent.children.push(child);
+      this.setChild(child, levels - 1);
+    }
+  }
 
   constructor() {
     super();
 
-    this.files = [{
-      "contextMenuItems": [{
-        label: 'File',
-        items: [{
-          label: 'New',
-          icon: 'fa-plus',
+    this.files = [];
+    this.lazyFiles = [];
+
+    let j = 0;
+
+    for(let i = 0; i < 10000; i++) {
+      let node = {
+        "contextMenuItems": [{
+          label: 'File',
           items: [{
-            label: 'Project'
+            label: 'New',
+            icon: 'fa-plus',
+            items: [{
+              label: 'Project'
+            }, {
+              label: 'Other'
+            }]
           }, {
-            label: 'Other'
+            label: 'Open'
+          }, {
+            label: 'Quit'
           }]
-        }, {
-          label: 'Open'
-        }, {
-          label: 'Quit'
-        }]
-      }],
-      "label": "Documents",
-      "data": "Documents Folder",
-      "expandedIcon": "fa-folder-open",
-      "collapsedIcon": "fa-folder",
-      "children": [{
-        "label": "Work",
-        "data": "Work Folder",
+        }],
+        "index": i,
+        "parentIndex": j - 1,
+        "label": "Documents",
+        "data": "Documents Folder",
         "expandedIcon": "fa-folder-open",
         "collapsedIcon": "fa-folder",
-        "children": [{
-          "label": "Expenses.doc",
-          "icon": "fa-file-word-o",
-          "data": "Expenses Document"
-        }, {
-          "label": "Resume.doc",
-          "icon": "fa-file-word-o",
-          "data": "Resume Document"
-        }]
-      }, {
-        "label": "Home",
-        "data": "Home Folder",
-        "expandedIcon": "fa-folder-open",
-        "collapsedIcon": "fa-folder",
-        "children": [{
-          "label": "Invoices.txt",
-          "icon": "fa-file-word-o",
-          "data": "Invoices for this month"
-        }]
-      }]
-    }, {
-      "contextMenuItems": [{
-        label: 'Edit',
-        icon: 'fa-edit',
-        items: [{
-          label: 'Undo',
-          icon: 'fa-mail-forward'
-        }, {
-          label: 'Redo',
-          icon: 'fa-mail-reply'
-        }]
-      }],
-      "label": "Pictures",
-      "data": "Pictures Folder",
-      "expandedIcon": "fa-folder-open",
-      "collapsedIcon": "fa-folder",
-      "children": [{
-        "label": "barcelona.jpg",
-        "icon": "fa-file-image-o",
-        "data": "Barcelona Photo"
-      }, {
-        "label": "logo.jpg",
-        "icon": "fa-file-image-o",
-        "data": "PrimeFaces Logo"
-      }, {
-        "label": "primeui.png",
-        "icon": "fa-file-image-o",
-        "data": "PrimeUI Logo"
-      }]
-    }, {
-      "label": "Movies",
-      "data": "Movies Folder",
-      "expandedIcon": "fa-folder-open",
-      "collapsedIcon": "fa-folder",
-      "children": [{
-        "label": "Al Pacino",
-        "data": "Pacino Movies",
-        "children": [{
-          "label": "Scarface",
-          "icon": "fa-file-video-o",
-          "data": "Scarface Movie"
-        }, {
-          "label": "Serpico",
-          "icon": "fa-file-video-o",
-          "data": "Serpico Movie"
-        }]
-      }, {
-        "label": "Robert De Niro",
-        "data": "De Niro Movies",
-        "children": [{
-          "label": "Goodfellas",
-          "icon": "fa-file-video-o",
-          "data": "Goodfellas Movie"
-        }, {
-          "label": "Untouchables",
-          "icon": "fa-file-video-o",
-          "data": "Untouchables Movie"
-        }]
-      }]
-    }];
+        "children": [],
+        "leaf": false
+        // "children": [{
+        //   "label": "Work",
+        //   "data": "Work Folder",
+        //   "expandedIcon": "fa-folder-open",
+        //   "collapsedIcon": "fa-folder",
+        //   "children": [{
+        //     "label": "Expenses.doc",
+        //     "icon": "fa-file-word-o",
+        //     "data": "Expenses Document"
+        //   }, {
+        //     "label": "Resume.doc",
+        //     "icon": "fa-file-word-o",
+        //     "data": "Resume Document"
+        //   }]
+        // }]
+      };
+
+      // this.setChild(node, 10);
+      //
+      // this.files.push(node);
+      this.lazyFiles.push(node);
+
+      if(i % 1000 === 0) {
+        j++;
+      }
+    }
 
     this.contextMenuItems = [
       {
@@ -151,9 +153,11 @@ export class TreeService extends BaseService {
     });
   }
 
-  public getLazyFiles(): Promise<any> {
+  public getLazyFiles(parentIndex: number): Promise<any> {
     return new Promise((resolve, reject) => {
-      resolve(this.files);
+      resolve(this.lazyFiles.filter(f => {
+        return f.parentIndex === parentIndex;
+      }));
     });
   }
 

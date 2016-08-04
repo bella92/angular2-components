@@ -1,9 +1,10 @@
 <p-growl [value]="msgs"></p-growl>
 
-<p-tree [value]="files"
+<p-tree [value]="lazyFiles"
         selectionMode="single"
         [(selection)]="selectedFile"
-        (onNodeUnselect)="nodeUnselect($event)">
+        (onNodeUnselect)="nodeUnselect($event)"
+        (onNodeExpand)="nodeExpand($event)">
   <template let-node>
     <!--<input [(ngModel)]="node.label" type="text" style="width:100%" />-->
   <!--</template>-->
@@ -16,8 +17,3 @@
 
 <p-tieredMenu #contextMenu [model]="contextMenuItems" [popup]="true"></p-tieredMenu>
 <span>{{selectedNode.label}}</span>
-
-<input [(ngModel)]="width" type="number" />
-<input [(ngModel)]="height" type="number" />
-
-<sd-drag_and_drop [width]="width" [height]="height"></sd-drag_and_drop>

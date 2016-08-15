@@ -11,10 +11,11 @@ export class DynamicTabsService extends BaseService {
 
     this.tabs = [{
       id: 1,
-      header: 'Tab 1'
+      label: 'Tab 1',
+      icon: 'xx'
     }, {
       id: 2,
-      header: 'Tab 2'
+      label: 'Tab 2'
     }];
   }
 

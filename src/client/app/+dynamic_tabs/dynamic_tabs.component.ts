@@ -4,6 +4,9 @@ import { RouterLink } from '@angular/router';
 
 import { TabMenu } from 'primeng/primeng';
 
+import {TabView} from 'primeng/primeng';
+import {TabPanel} from 'primeng/primeng';
+
 import { InnerContent } from '../+inner_content/inner_content';
 
 import { DynamicTabsService } from '../shared/services/dynamic_tabs.service';
@@ -13,25 +16,26 @@ import { DynamicTabsService } from '../shared/services/dynamic_tabs.service';
   selector: 'sd-dynamic_tabs',
   templateUrl: 'dynamic_tabs.component.html',
   styleUrls: ['dynamic_tabs.component.css'],
-  directives: [REACTIVE_FORM_DIRECTIVES, RouterLink, TabMenu, InnerContent],
+  directives: [REACTIVE_FORM_DIRECTIVES, RouterLink, TabMenu, InnerContent, TabView, TabPanel],
   providers: [DynamicTabsService, RouterLink]
 })
 export class DynamicTabsComponent implements OnInit {
   tabs: any[];
+  pesho: number;
 
   constructor(private dynamicTabsService: DynamicTabsService) {
-    debugger;
+    this.pesho = 5;
   }
 
   ngOnInit() {
-    // this.dynamicTabsService.getTabs().then(tabs => this.tabs = tabs);
-    this.tabs = [{
-      label: 'Tab 1',
-      command: this.command
-    }, {
-      label: 'Tab 2',
-      command: this.command
-    }];
+    this.dynamicTabsService.getTabs().then(tabs => this.tabs = tabs);
+    // this.tabs = [{
+    //   label: 'Tab 1',
+    //   command: this.command
+    // }, {
+    //   label: 'Tab 2',
+    //   command: this.command
+    // }];
   }
 
   command() {

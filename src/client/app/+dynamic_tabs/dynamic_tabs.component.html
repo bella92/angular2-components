@@ -1,0 +1,14 @@
+<p-tabMenu [model]="tabs">
+  <template let-tab>
+    <div>Pesho</div>
+  </template>
+</p-tabMenu>
+
+<ng-content select="footer"></ng-content>
+
+<div [innerContent]="[
+      'Go to <a [routerLink]=&quot;[Home]&quot;>Home page</a>',
+['RouterLink']
+]"></div>
+
+<button (click)="add()">Add</button>

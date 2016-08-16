@@ -44,8 +44,9 @@ export class DynamicTabsComponent implements OnInit {
 
   add() {
     this.tabs.push({
-      label: 'Tab 3',
-      command: this.command
+      id: 1,
+      label: 'Tab 1',
+      icon: 'xx'
     });
   }
 
